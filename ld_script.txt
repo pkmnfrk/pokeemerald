@@ -1267,6 +1267,12 @@ SECTIONS {
         src/graphics.o(.rodata);
     } =0
 
+    hax :
+    ALIGN(4)
+    {
+        src/team_randomizer.o(.text);
+    } =0
+
     /* DWARF debug sections.
        Symbols in the DWARF debugging sections are relative to the beginning
        of the section so we begin them at 0.  */
