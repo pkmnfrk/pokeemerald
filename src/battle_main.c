@@ -5182,3 +5182,19 @@ void RunBattleScriptCommands(void)
     if (gBattleControllerExecFlags == 0)
         gBattleScriptingCommandsTable[gBattlescriptCurrInstr[0]]();
 }
+
+void RandomizePartyPokemon(struct Pokemon *party)
+{
+    struct Pokemon *mon;
+    u16 i, rnd, oldSpecies;
+    for(i = 0; i < PARTY_SIZE; ++i) {
+        mon = &party[i];
+        if(!(oldSpecies = GetMonData(mon, MON_DATA_SPECIES, 0)) || GetMonData(mon, MON_DATA_IS_EGG, 0)) {
+            continue;
+        }
+        rnd = 1 + Random() % SPECIES_DEOXYS;
+        SetMonData(mon, MON_DATA_SPECIES, &rnd);
+        GiveMonInitialMoveset(mon);
+        EvolutionRenameMon(mon, oldSpecies, rnd);
+    }
+}
