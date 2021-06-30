@@ -6973,3 +6973,19 @@ u8 *sub_806F4F8(u8 id, u8 arg1)
         return structPtr->byteArrays[arg1];
     }
 }
+
+void RandomizePartyPokemon(struct Pokemon *party)
+{
+    struct Pokemon *mon;
+    u16 i, rnd, oldSpecies;
+    for(i = 0; i < PARTY_SIZE; ++i) {
+        mon = &party[i];
+        if(!(oldSpecies = GetMonData(mon, MON_DATA_SPECIES, 0)) || GetMonData(mon, MON_DATA_IS_EGG, 0)) {
+            continue;
+        }
+        rnd = 1 + Random() % SPECIES_DEOXYS;
+        SetMonData(mon, MON_DATA_SPECIES, &rnd);
+        GiveMonInitialMoveset(mon);
+        EvolutionRenameMon(mon, oldSpecies, rnd);
+    }
+}

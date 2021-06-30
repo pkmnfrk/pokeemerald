@@ -5158,6 +5158,7 @@ static void ReturnFromBattleToOverworld(void)
     }
 
     m4aSongNumStop(SE_LOW_HEALTH);
+    RandomizePartyPokemon(gPlayerParty);
     SetMainCallback2(gMain.savedCallback);
 }
 
